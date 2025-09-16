@@ -1,1 +1,0 @@
-# Actividad10_GrupoD
