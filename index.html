@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificador de Incidentes ML - Aprendizaje Real</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="css/actividad10.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Clasificador de Incidentes - Aprendizaje Real</h1>
+            <p>Observa cómo el algoritmo aprende gradiente a gradiente usando Regresión Logística</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>📈 Entrenamiento Incremental</h3>
+                <div id="status" class="status status-complete">Listo para aprender</div>
+                <div class="training-controls">
+                    <button id="startBtn" onclick="startTraining()">🧠 Comenzar Aprendizaje</button>
+                    <button id="stepBtn" onclick="trainStep()" disabled>➡️ Un Paso</button>
+                    <button id="resetBtn" onclick="resetModel()">🔄 Reiniciar</button>
+                    <label>
+                        Velocidad: <select id="speedSelect">
+                            <option value="50">Muy Rápido</option>
+                            <option value="200">Rápido</option>
+                            <option value="800" selected>Normal</option>
+                            <option value="1500">Lento</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-label">Ejemplos</div>
+                        <div class="metric-value" id="exampleCount">0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Aciertos</div>
+                        <div class="metric-value" id="correctCount">0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Precisión</div>
+                        <div class="metric-value" id="accuracy">0%</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Loss</div>
+                        <div class="metric-value" id="currentLoss">0.000</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Tasa Apr.</div>
+                        <div class="metric-value" id="learningRate">0.100</div>
+                    </div>
+                </div>
+                <div id="currentExample" class="current-example" style="display: none;">
+                    <strong>Ejemplo actual:</strong> <span id="exampleText"></span><br>
+                    <strong>Predicción:</strong> <span id="examplePred"></span> | 
+                    <strong>Real:</strong> <span id="exampleTrue"></span> | 
+                    <strong>¿Correcto?</strong> <span id="exampleCorrect"></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>📊 Evolución del Aprendizaje</h3>
+                <div class="chart-container">
+                    <canvas id="learningChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>⚖️ Pesos del Modelo</h3>
+                <p style="margin-bottom: 10px; font-size: 0.9rem; color: #666;">
+                    Los pesos muestran qué palabras influyen en cada clasificación:
+                </p>
+                <div id="weightsDisplay" class="weights-display">
+                    <p>Los pesos aparecerán durante el entrenamiento...</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>📝 Log de Aprendizaje</h3>
+                <div id="learningLog" class="learning-log">
+                    <p>El registro de aprendizaje aparecerá aquí...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card full-width">
+            <h3>🎯 Predictor en Tiempo Real</h3>
+            <div class="prediction-form">
+                <div class="form-grid">
+                    <input type="text" id="incidentText" placeholder="Describe el incidente..." value="cables eléctricos caídos en la vereda">
+                    <select id="channelSelect">
+                        <option value="app">App</option>
+                        <option value="web">Web</option>
+                        <option value="telefono">Teléfono</option>
+                    </select>
+                    <select id="weatherSelect">
+                        <option value="despejado">Despejado</option>
+                        <option value="nublado">Nublado</option>
+                        <option value="lluvia">Lluvia</option>
+                    </select>
+                    <select id="neighborhoodSelect">
+                        <option value="Centro">Centro</option>
+                        <option value="Norte">Norte</option>
+                        <option value="Sur">Sur</option>
+                        <option value="Este">Este</option>
+                        <option value="Oeste">Oeste</option>
+                    </select>
+                </div>
+                <button onclick="makePrediction()">🔮 Clasificar Incidente</button>
+                <div id="predictionResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/actividad10.js"></script>
+</body>
+</html>
